@@ -2,6 +2,7 @@ package com.shevy.workout
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,13 @@ class WorkoutDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
+            val stopwatch: StopwatchFragment = StopwatchFragment()
+            val ft: FragmentTransaction = childFragmentManager.beginTransaction()
+            ft.add(R.id.stopwatch_container, stopwatch )
+            ft.addToBackStack(null)
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            ft.commit()} else {
             workoutId = savedInstanceState.getLong("workoutId")
         }
     }
